@@ -1,0 +1,3 @@
+.vscode/
+docker_airflow/logs
+codalike.json
