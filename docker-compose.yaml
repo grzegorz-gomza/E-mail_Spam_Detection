@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: ./src/frontend
+      dockerfile: Dockerfile
+    image: frontend:v1.0
+    container_name: frontend
+    ports:
+      - "9000:9000"
+    networks: 
+      SpamClassifier: 
+        aliases: 
+          - frontend.docker
+    depends_on:
+      - backend
+    volumes:
+      - frontend_data:/app
+      - shared_storage:/storage
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./src/backend
+      dockerfile: Dockerfile
+    image: backend:v1.0
+    container_name: backend
+    ports:
+      - "8000:8000"
+    networks: 
+      SpamClassifier: 
+        aliases: 
+          - backend.docker
+    volumes:
+      - backend_app:/app
+      - shared_storage:/storage
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+
+networks:
+  SpamClassifier:
+    driver: bridge
+
+volumes:
+  frontend_data:
+  backend_app:
+  shared_storage:
