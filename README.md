@@ -34,7 +34,7 @@ In this project, I would use the following technologies and tools:
 12. Seaborn
 13. Docker
 14. Airflow
-15. FastAPI
+15. FastAPI 
 
 
 ### Dataset
